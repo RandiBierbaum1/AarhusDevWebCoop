@@ -24,7 +24,7 @@ namespace AarhusWebDevCoop.Controllers
         [HttpPost]
         public ActionResult HandleFormSubmit(ContactForm model)
         {
-
+//If modelState is not valid
           if (!ModelState.IsValid)
             {
                 return CurrentUmbracoPage();
