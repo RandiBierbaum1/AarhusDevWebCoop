@@ -1,0 +1,25 @@
+header {
+    margin: auto;
+    width: 70%;
+    background-color: white;
+    font-size: 250%;
+    text-align: center;
+}
+body {
+    background: white;
+
+}
+        
+#mainContent {
+   margin: 25px 100px;
+    text-align: left;
+}
+
+/*Contact us error message */
+.field-validation-error {
+    color: red;
+}
+
+#footer {
+    color: grey;
+}

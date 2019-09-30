@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ContactPage>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "master.cshtml";
+}
+
+<body>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <div class="container">
+        @if (TempData["success"] == null)
+        {
+            @Html.Action("Index", "ContactFormSurface")
+        }
+
+        else
+        {
+            <p>Thank you for contaction us. We'll be in touch soon!</p>
+        }
+    </div>
+</body>

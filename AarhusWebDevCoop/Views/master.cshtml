@@ -1,0 +1,43 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+@* the fun starts here *@
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="AarhusWebDevCoop">
+        <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+        <meta name="author" content="Randi Bierbaum">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- installation files -->
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+        
+         <!-- Bootstrap CSS -->
+        <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/Style.css" />
+    </head>
+
+<!--I'll try to make some changes-->
+    <body>
+        <!-- Navigation -->
+        @Umbraco.RenderMacro("mainMenu")
+        <!-- End Navigation -->
+
+ <!-- Page content -->
+ <div class="container">
+        @RenderBody()
+</div>
+<!-- Footer -->
+<div class="container" id="footer">
+        <p>@Model.Value("footer", fallback: Fallback.ToAncestors)</p>
+</div>
+
+
+    </body>
+    </html>

@@ -1,0 +1,36 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "master.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="/css/FrontPageStyle.css" />
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="AarhusWebDevCoop">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+  <meta name="author" content="Randi Bierbaum">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<header class="siteTitle">
+    <h1>@Model.SiteTitle</h1>
+
+</header>
+
+<body>
+    
+        <div id="banner-image" >
+        <img class="w-100" src="@Model.Banner.Url" alt="banner" class="banner"/>
+        </div>
+     
+    <div id="mainContent">
+        <p>@Model.MainContent</p>
+       <p>
+            @Html.Partial("listNewestProjects")
+        </p>
+    </div>
+
+</body>

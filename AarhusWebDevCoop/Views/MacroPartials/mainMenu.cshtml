@@ -1,0 +1,75 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using Umbraco.Web
+
+
+@*
+    This snippet displays a list of links of the pages immediately under the top-most page in the content tree.
+    This is the home page for a standard website.
+    It also highlights the current active page/section in the navigation with the CSS class "current".
+*@
+@{ var root = Model.Content.Root(); }
+@{
+    var selection = root.AncestorOrSelf(2).Children.Where(x => x.IsVisible()).ToArray();
+}
+@*Navigation dropdown bar*@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Aarhus Web Developer Corporation</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            @*the root element*@
+            <li class="nav-item @((Model.Content.Name == root.Name) ? "active" : null)">
+                <a class="nav-link" href="@root.Url">@root.Name</a>
+            </li>
+
+            @if (selection.Length > 0)
+            {
+                foreach (var menuItem in selection)
+                {
+
+                    @*Children of the root *@
+                    if (menuItem.Children().Where(x => x.IsVisible()).Count() > 0)
+                    {
+                        <li class="nav-item dropdown @(menuItem.IsAncestorOrSelf(Model.Content) ? "selected" : null)">
+                            <a class="nav-link dropdown-toggle" href="@menuItem.Url" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @menuItem.Name
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                @foreach (var subItem in menuItem.Children().Where(x => x.IsVisible()))
+                                {
+                                    // if document type is ProjectItem
+                                    if (subItem.Name == "ProjectItem")
+                                    {
+                                        //and if Project status is completed
+                                        //if ("ProjectStatus" == "completed")
+                                        //{
+                                        <a class="dropdown-item" href="@subItem.Url">@subItem.Name</a>
+                                        //}
+                                    }
+
+                                    //else display subItem as before
+                                    else
+                                    {
+                                        <a class="dropdown-item" href="@subItem.Url">@subItem.Name</a>
+                                    }
+                                }
+
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item @(menuItem.IsAncestorOrSelf(Model.Content) ? "active" : null)">
+                            <a class="nav-link" href="@menuItem.Url">@menuItem.Name</a>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</nav>

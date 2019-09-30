@@ -1,0 +1,48 @@
+﻿@model AarhusWebDevCoop.ViewModels.ContactForm
+
+@{
+    Layout = null;
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@using (Html.BeginUmbracoForm("HandleFormSubmit", "ContactFormSurface", new object {},
+new {@class = "forn-horizontal" }))
+{
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Name, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-6">
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Email, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-6">
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email address" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Subject, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-6">
+        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", placeholder = "Subject" })
+        @Html.ValidationMessageFor(m => m.Subject)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Message, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-6">
+        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", placeholder = "Your message" })
+        @Html.ValidationMessageFor(m => m.Message)
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+        <button id="contact-submit" type="submit" class="btn btn-primary input-medium pull-left">Send</button>
+    </div>
+</div>
+}
+
+

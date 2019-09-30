@@ -1,0 +1,46 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Web
+
+
+@{
+ var root = Model.Root(); //get the root element
+ var selection = root
+ .FirstChildOfType("projectsOverview") //select the node in the content tree
+ .ChildrenOfType("projectItem")
+ .Where(x => x.HasValue("projectStatus") && x.GetProperty("projectStatus") 
+ .Value<string>
+    () == "Completed" && x.IsVisible()) //the Where select all project nodes with projectStatus set to Completed
+    .OrderByDescending(x => x.CreateDate) //sort all projects by date
+    .Take(5) //return only top 5
+    .ToArray();
+    }
+
+
+    
+    @if (selection.Length > 0) 
+    {
+    foreach (var item in selection)
+    {
+    <!-- post -->
+    <div class="post col-xs-6">
+        <div class="post-thumbnail">
+            <a href="@item.Url">
+                @{
+                    var projectImage = item.Value<IPublishedContent>("projectImage");
+                    
+                    if (projectImage != null) {
+                        <img src="@projectImage.Url" alt="@projectImage.Url" class="img-fluid">
+                    }
+                }
+            </a>
+        </div>
+        <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+                <a href="@item.Url">
+                    <h3 class="h4">@item.Name</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    }
+    }
