@@ -24,7 +24,6 @@ namespace AarhusWebDevCoop.Controllers
         [HttpPost]
         public ActionResult HandleFormSubmit(ContactForm model)
         {
-//If modelState is not valid
           if (!ModelState.IsValid)
             {
                 return CurrentUmbracoPage();
@@ -53,8 +52,23 @@ namespace AarhusWebDevCoop.Controllers
 
                 // send mail
                 smtp.Send(message);
-                               
+                            
             }
+
+            //Get the GuildUdi of the current page
+            GuidUdi currentPageUdi = new GuidUdi(CurrentPage.ContentType.ItemType.ToString(), CurrentPage.Key);
+
+            //Create the new content type
+            IContent msg = Services.ContentService.CreateContent(model.Subject, currentPageUdi, "message");
+            msg.SetValue("messageName", model.Name);
+            msg.SetValue("email", model.Email);
+            msg.SetValue("subject", model.Subject);
+            msg.SetValue("messageContent", model.Message);
+            msg.SetValue("umbracoNaviHide", true);
+
+            //Save
+            Services.ContentService.Save(msg);
+
             return RedirectToCurrentUmbracoPage();
         }
     }
